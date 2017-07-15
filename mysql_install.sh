@@ -11,18 +11,6 @@ if [ $(id -u) != "0" ]; then
 	exit 1
 fi
 
-#check file 
-#if [ ! -f boost_1_59_0.tar.gz ]; then
-#	echo "Error! file boost_1_59_0.tar.gz Don't exist, exit!"
-#	exit 1
-#fi
-
-#if [ ! -f mysql-5.5.42.tar.gz ]; then
-#	echo "Error! file mysql-5.7.17.tar.gz Don't exist, download now!"
-#	sleep 1
-#	wget -c http://ocwljlzzv.bkt.clouddn.com/soft/mysql-5.5.42.tar.gz
-#fi
-
 #install path
 install_path=/usr/local/mysql
 
@@ -46,7 +34,6 @@ if [ ! -f mysql-5.5.42.tar.gz ]; then
 fi
 
 #Extract file
-#tar -zxvf boost_1_59_0.tar.gz -C /usr/local/src
 tar -zxvf mysql-5.5.42.tar.gz -C /usr/local/src
 
 #begin
@@ -227,8 +214,6 @@ fi
 # initialize mysql system databases and tables
 mkdir -p /usr/local/mysql/data
 chown -R mysql:mysql /usr/local/mysql/data
-#/usr/local/mysql/bin/mysqld --initialize-insecure --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data  --user=mysql
-#chgrp mysql /usr/local/mysql/.
 
 cp support-files/mysql.server /etc/init.d/mysql
 chmod 755 /etc/init.d/mysql
@@ -241,36 +226,9 @@ EOF
 ldconfig
 sleep 2
 
-#cat > /usr/share/mysql.startup.sh << EOF
-#!/bin/bash
-#rm -rf /tmp/mysql.sock.lock
-#sleep 1
-#/usr/local/mysql/bin/mysqld_safe
-#if [[ -z $MYSQL_ROOT_PASSWORD ]]; then
-#	echo "Error, You not define mysql root password"
-#	exit 1
-#fi
-#if [[ -z $MYSQL_ALLOW_HOST ]]; then
-#	MYSQL_ALLOW_HOST=%
-#	/usr/local/mysql/bin/mysqld --initialize-insecure --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data  --user=mysql > /dev/null 2>&1
-#	chgrp mysql /usr/local/mysql/.
-#	/etc/init.d/mysql start 
-#	mysql -uroot -e "grant all privileges on *.* to 'root'@'%' identified by '123456';"
-#	mysql -uroot -e "grant all privileges on *.* to 'root'@'localhost' identified by '123456';" \
-#
-#EOF
-#
-#/etc/init.d/mysql start 
-#mysql -uroot -e "grant all privileges on *.* to 'root'@'%' identified by '123456';"
-#mysql -uroot -e "grant all privileges on *.* to 'root'@'localhost' identified by '123456';" \
-#/etc/init.d/mysql stop \
-#rm -rf /tmp/mysql.sock.lock
-
-#sleep 1
-#chmod +x /usr/share/mysql.startup.sh
 apt-get clean
 apt-get -y autoclean
-#rm -rf /usr/local/src/boost_1_59_0/
+
 rm -rf /usr/local/src/mysql-5.5.42
 rm -rf /var/lib/apt/list/*
 

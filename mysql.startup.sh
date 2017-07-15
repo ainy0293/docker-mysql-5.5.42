@@ -23,7 +23,6 @@ fi
 #fi
 
 if [ -z $dir_null -o "$dir_null" == "test" ]; then
-#        /usr/local/mysql/bin/mysqld --initialize-insecure --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data  --user=mysql > /dev/null 2>&1
 	sed -i '23s/^/#/g' /etc/my.cnf
 	sed -i '33s/^/#/g' /etc/my.cnf
 	sleep 1
